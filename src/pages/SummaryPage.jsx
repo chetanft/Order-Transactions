@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import styles from './SummaryPage.module.css';
 import { tripsData } from '../data/tripsData';
+import InvoiceDetailsModal from '../components/InvoiceDetailsModal';
 
 const SummaryPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
   const [activeTab, setActiveTab] = useState('Summary');
   const [selectedTrip, setSelectedTrip] = useState(null);
+  const [isInvoiceModalOpen, setIsInvoiceModalOpen] = useState(false);
   const [filters, setFilters] = useState({
     deliveryStatus: 'all',
     stage: 'all',
@@ -133,14 +135,22 @@ const SummaryPage = () => {
   };
 
   const navigateToOrderDetail = (trip) => {
-    // Remove the "SO-" prefix and navigate to the order detail page
-    const orderId = trip.orderId.replace('SO-', '');
-    window.location.href = `/order/${orderId}`;
+    // Set the selected trip and open the invoice modal
+    setSelectedTrip(trip);
+    setIsInvoiceModalOpen(true);
   };
 
-  const closeModal = () => {
-    setSelectedTrip(null);
+  const closeInvoiceModal = () => {
+    setIsInvoiceModalOpen(false);
+    // Don't reset selectedTrip immediately to allow for animation
+    setTimeout(() => {
+      setSelectedTrip(null);
+    }, 300);
   };
+
+  // These functions would navigate to previous/next orders in a real app
+  const handlePrevOrder = () => console.log('Navigate to previous order');
+  const handleNextOrder = () => console.log('Navigate to next order');
 
   return (
     <div className={styles.summaryPage}>
@@ -363,70 +373,58 @@ const SummaryPage = () => {
         </div>
       </div>
 
+      {/* Old modal removed */}
+
+      {/* Invoice Details Modal */}
       {selectedTrip && (
-        <div className={styles.modalOverlay} onClick={closeModal}>
-          <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
-            <div className={styles.modalHeader}>
-              <h2>Order Details</h2>
-              <button className={styles.closeButton} onClick={closeModal}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                  <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-              </button>
-            </div>
-            <div className={styles.modalContent}>
-              <div className={styles.detailRow}>
-                <span className={styles.detailLabel}>Order ID:</span>
-                <span className={styles.detailValue}>{selectedTrip.orderId}</span>
-              </div>
-              <div className={styles.detailRow}>
-                <span className={styles.detailLabel}>Consignor:</span>
-                <span className={styles.detailValue}>{selectedTrip.consignor}</span>
-              </div>
-              <div className={styles.detailRow}>
-                <span className={styles.detailLabel}>Consignee:</span>
-                <span className={styles.detailValue}>{selectedTrip.consignee}</span>
-              </div>
-              <div className={styles.detailRow}>
-                <span className={styles.detailLabel}>Route:</span>
-                <span className={styles.detailValue}>{selectedTrip.route || '-'}</span>
-              </div>
-              <div className={styles.detailRow}>
-                <span className={styles.detailLabel}>Trip Type:</span>
-                <span className={styles.detailValue}>{selectedTrip.tripType || '-'}</span>
-              </div>
-              <div className={styles.detailRow}>
-                <span className={styles.detailLabel}>Stage:</span>
-                <span className={styles.detailValue}>{selectedTrip.stage}</span>
-              </div>
-              <div className={styles.detailRow}>
-                <span className={styles.detailLabel}>Status:</span>
-                <span className={`${styles.detailValue} ${styles.statusBadge} ${getStatusClass(selectedTrip.status)}`}>
-                  {selectedTrip.status}
-                </span>
-              </div>
-              <div className={styles.detailRow}>
-                <span className={styles.detailLabel}>ID:</span>
-                <span className={styles.detailValue}>{selectedTrip.id || '-'}</span>
-              </div>
-              <div className={styles.detailRow}>
-                <span className={styles.detailLabel}>Delivery Status:</span>
-                <span className={`${styles.detailValue} ${styles.deliveryStatus} ${getDeliveryStatusClass(selectedTrip.deliveryStatus)}`}>
-                  {selectedTrip.deliveryStatus}
-                </span>
-              </div>
-              <div className={styles.detailRow}>
-                <span className={styles.detailLabel}>Delivery Date:</span>
-                <span className={styles.detailValue}>{selectedTrip.deliveryDate}</span>
-              </div>
-            </div>
-            <div className={styles.modalFooter}>
-              <button className={styles.primaryButton} onClick={() => navigateToOrderDetail(selectedTrip)}>View Full Details</button>
-              <button className={styles.secondaryButton} onClick={closeModal}>Close</button>
-            </div>
-          </div>
-        </div>
+        <InvoiceDetailsModal
+          isOpen={isInvoiceModalOpen}
+          onClose={closeInvoiceModal}
+          onPrev={handlePrevOrder}
+          onNext={handleNextOrder}
+          orderData={{
+            soNumber: selectedTrip.orderId.replace('SO-', ''),
+            totalWeight: '70 Ton',
+            numberOfDOs: '1',
+            numberOfSKUs: '20',
+            totalCost: '₹ 5,00,000',
+            createdAt: '3 PM, 10 Feb 24',
+            transitStatus: selectedTrip.status,
+            isOnTime: !selectedTrip.deliveryStatus.includes('Delayed'),
+            eta: selectedTrip.deliveryDate.includes('ETA') ? selectedTrip.deliveryDate.replace('ETA: ', '') : selectedTrip.deliveryDate,
+            sta: selectedTrip.deliveryDate,
+            nextMilestone: 'At Destination',
+            etaDestination: selectedTrip.deliveryDate,
+            sender: {
+              name: selectedTrip.consignor,
+              address: 'Consignor Address, 11th & 12th Floor, Hansalaya Building, 15 Barakhamba Road, Amritsar, Punjab',
+              gstin: '12345678',
+              email: 'someemailaddress@somemail.com',
+              phone: '84973-47593'
+            },
+            shipTo: {
+              name: selectedTrip.consignee,
+              address: 'Consignor Address, 11th & 12th Floor, Hansalaya Building, 15 Barakhamba Road, New Delhi 110001',
+              gstin: '12345678',
+              email: 'someemailaddress@somemail.com',
+              phone: '84973-47593'
+            },
+            billTo: {
+              name: selectedTrip.consignee,
+              address: 'Consignor Address, 11th & 12th Floor, Hansalaya Building, 15 Barakhamba Road, New Delhi 110001',
+              gstin: '12345678',
+              email: 'someemailaddress@somemail.com',
+              phone: '84973-47593'
+            },
+            ids: {
+              planningId: selectedTrip.id,
+              indentId: selectedTrip.id,
+              journeyId: selectedTrip.id,
+              epodId: '-',
+              invoiceNumber: '-'
+            }
+          }}
+        />
       )}
     </div>
   );

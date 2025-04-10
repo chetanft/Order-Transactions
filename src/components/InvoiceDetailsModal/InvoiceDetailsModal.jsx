@@ -1,8 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from './InvoiceDetailsModal.module.css';
 
 const InvoiceDetailsModal = ({ isOpen, onClose, onPrev, onNext, orderData }) => {
   const [activeTab, setActiveTab] = useState('details');
+  const [isClosing, setIsClosing] = useState(false);
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      setIsClosing(false);
+      document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+    }
+    return () => {
+      document.body.style.overflow = 'auto'; // Re-enable scrolling when component unmounts
+    };
+  }, [isOpen]);
+
+  const handleClose = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      onClose();
+      setIsClosing(false);
+    }, 300); // Match this with the CSS animation duration
+  };
 
   if (!isOpen) return null;
 
@@ -142,8 +162,11 @@ const InvoiceDetailsModal = ({ isOpen, onClose, onPrev, onNext, orderData }) => 
   };
 
   return (
-    <div className={styles.modalOverlay}>
-      <div className={styles.modalContainer}>
+    <div className={styles.modalOverlay} onClick={handleClose}>
+      <div
+        ref={containerRef}
+        className={`${styles.modalContainer} ${isClosing ? styles.closing : ''}`}
+        onClick={(e) => e.stopPropagation()}>
         <div className={styles.modalHeader}>
           <h2>Invoice Details</h2>
           <div className={styles.modalActions}>
@@ -157,7 +180,7 @@ const InvoiceDetailsModal = ({ isOpen, onClose, onPrev, onNext, orderData }) => 
                 <polyline points="9 18 15 12 9 6"></polyline>
               </svg>
             </button>
-            <button className={styles.closeButton} onClick={onClose}>
+            <button className={styles.closeButton} onClick={handleClose}>
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="18" y1="6" x2="6" y2="18"></line>
                 <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -167,19 +190,19 @@ const InvoiceDetailsModal = ({ isOpen, onClose, onPrev, onNext, orderData }) => 
         </div>
 
         <div className={styles.tabsContainer}>
-          <button 
+          <button
             className={`${styles.tabButton} ${activeTab === 'details' ? styles.activeTab : ''}`}
             onClick={() => setActiveTab('details')}
           >
             Details
           </button>
-          <button 
+          <button
             className={`${styles.tabButton} ${activeTab === 'timeline' ? styles.activeTab : ''}`}
             onClick={() => setActiveTab('timeline')}
           >
             Timeline
           </button>
-          <button 
+          <button
             className={`${styles.tabButton} ${activeTab === 'comments' ? styles.activeTab : ''}`}
             onClick={() => setActiveTab('comments')}
           >
