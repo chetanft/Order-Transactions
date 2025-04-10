@@ -1,15 +1,20 @@
 // netlify.js - Netlify build script
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Ensure the dist directory exists
-if (!fs.existsSync('dist')) {
-  fs.mkdirSync('dist', { recursive: true });
+const distDir = path.join(__dirname, 'dist');
+if (!fs.existsSync(distDir)) {
+  fs.mkdirSync(distDir, { recursive: true });
 }
 
 // Create _redirects file in the dist directory
 fs.writeFileSync(
-  path.join('dist', '_redirects'),
+  path.join(distDir, '_redirects'),
   '/* /index.html 200'
 );
 
