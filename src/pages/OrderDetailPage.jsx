@@ -6,7 +6,7 @@ import InvoiceDetailsModal from '../components/InvoiceDetailsModal';
 const OrderDetailPage = () => {
   const { orderId } = useParams();
   const navigate = useNavigate();
-  const displayOrderId = "SO: 21424";
+  const displayOrderId = "SO: 78544";
   const [activeInvoiceTab, setActiveInvoiceTab] = useState(1);
   const [isInvoiceModalOpen, setIsInvoiceModalOpen] = useState(false);
 
@@ -25,15 +25,155 @@ const OrderDetailPage = () => {
     year: 'numeric'
   }).format(currentDate);
 
-  // Calculate ETA (2 days from now)
-  const etaDate = new Date(currentDate);
-  etaDate.setDate(currentDate.getDate() + 2);
-  const formattedETA = "09:34 AM, 12 Mar 23";
+  // Realistic data for this order
+  const formattedETA = "09:34 AM, 20 May 2023";
+  const formattedStartDate = "07:20 AM, 17 Apr 2023";
 
-  // Calculate start time (1 day ago)
-  const startDate = new Date(currentDate);
-  startDate.setDate(currentDate.getDate() - 1);
-  const formattedStartDate = "07:20 AM, 11 Mar 23";
+  // Order data
+  const orderData = {
+    soNumber: "78544",
+    totalWeight: "70 Ton",
+    numberOfDOs: "1",
+    numberOfSKUs: "20",
+    totalCost: "₹ 6,50,000",
+    createdAt: "9:45 AM, 15 Apr 2023",
+    transitStatus: "In Transit",
+    isOnTime: false,
+    eta: formattedETA,
+    sta: formattedStartDate,
+    nextMilestone: "At Destination",
+    etaDestination: formattedETA,
+    sender: {
+      name: "JSW Steel - Salem",
+      address: "Salem Steel Plant, Pottaneri, Salem, Tamil Nadu - 636453",
+      gstin: "33AAACJ4323N1ZH",
+      email: "salem.logistics@jsw.in",
+      phone: "0427-240-1000"
+    },
+    shipTo: {
+      name: "Godrej Construction",
+      address: "Godrej Construction, Pirojshanagar, Vikhroli, Mumbai, Maharashtra - 400079",
+      gstin: "27AAACG2426K1ZV",
+      email: "procurement@godrejconstruction.com",
+      phone: "022-2518-8010"
+    },
+    billTo: {
+      name: "Godrej Construction - Finance",
+      address: "Godrej Construction, Finance Department, Pirojshanagar, Vikhroli, Mumbai, Maharashtra - 400079",
+      gstin: "27AAACG2426K1ZV",
+      email: "finance@godrejconstruction.com",
+      phone: "022-2518-8010"
+    },
+    timeline: [
+      {
+        date: "15 April 2023",
+        events: [
+          {
+            type: "SO Generated",
+            time: "09:45 AM",
+            details: "SO: 78544"
+          },
+          {
+            type: "Planning",
+            timeTaken: "3 hrs",
+            details: "SO: 78544",
+            subEvents: [
+              {
+                type: "In Process",
+                runtime: "2 hr",
+                details: "Weight: 70 Ton"
+              },
+              {
+                type: "Plan generated",
+                time: "12:45 PM",
+                details: "Plan ID: 32151235"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        date: "16 April 2023",
+        events: [
+          {
+            type: "Indent",
+            timeTaken: "8 hrs",
+            details: "Indent ID: 875454",
+            subEvents: [
+              {
+                type: "Published",
+                time: "10:30 AM",
+                details: [
+                  "Acceptance deadline: 12:00 PM, 17 April 2023",
+                  "Published to: Safe and Express Transporters"
+                ]
+              },
+              {
+                type: "Pending Acceptance",
+                timeTaken: "3 hrs",
+                details: [
+                  "Start: 10:30 AM",
+                  "End: 1:30 PM"
+                ]
+              },
+              {
+                type: "In Assignment",
+                timeTaken: "5 hrs",
+                details: [
+                  "Start: 1:30 PM",
+                  "End: 6:30 PM"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        date: "17 April 2023",
+        events: [
+          {
+            type: "Reporting",
+            time: "08:15 AM",
+            details: "Vehicle No: TN 04 AK 1234"
+          },
+          {
+            type: "Transit",
+            timeTaken: "Ongoing",
+            details: "Trip ID: 89147250"
+          }
+        ]
+      }
+    ],
+    comments: [
+      {
+        id: 1,
+        time: "10:30 AM, 17 Apr 2023",
+        text: "Vehicle has been loaded and departed from Salem plant. All documentation complete.",
+        user: {
+          initial: "R",
+          name: "Rajesh Kumar"
+        }
+      },
+      {
+        id: 2,
+        time: "6:45 PM, 17 Apr 2023",
+        text: "Vehicle crossed Krishnagiri toll. Expected delay due to highway construction between Krishnagiri and Bangalore.",
+        user: {
+          initial: "S",
+          name: "Suresh Menon"
+        }
+      },
+      {
+        id: 3,
+        time: "9:15 AM, 18 Apr 2023",
+        text: "Vehicle reached Bangalore. Will be delayed by approximately 1 day due to traffic restrictions in Hyderabad city limits.",
+        user: {
+          initial: "A",
+          name: "Amit Singh"
+        }
+      }
+    ]
+  };
   return (
     <div className={styles.orderDetailPage}>
       {/* Header Navigation */}
@@ -592,20 +732,7 @@ const OrderDetailPage = () => {
         onClose={closeInvoiceModal}
         onPrev={handlePrevOrder}
         onNext={handleNextOrder}
-        orderData={{
-          soNumber: displayOrderId.replace('SO: ', ''),
-          totalWeight: '70 Ton',
-          numberOfDOs: '1',
-          numberOfSKUs: '20',
-          totalCost: '₹ 5,00,000',
-          createdAt: '3 PM, 10 Feb 24',
-          transitStatus: 'In Transit',
-          isOnTime: true,
-          eta: formattedETA,
-          sta: formattedStartDate,
-          nextMilestone: 'At Destination',
-          etaDestination: formattedStartDate
-        }}
+        orderData={orderData}
       />
     </div>
   );

@@ -384,32 +384,32 @@ const SummaryPage = () => {
           onNext={handleNextOrder}
           orderData={{
             soNumber: selectedTrip.orderId.replace('SO-', ''),
-            totalWeight: '70 Ton',
+            totalWeight: selectedTrip.weight || '70 Ton',
             numberOfDOs: '1',
-            numberOfSKUs: '20',
-            totalCost: '₹ 5,00,000',
-            createdAt: '3 PM, 10 Feb 24',
+            numberOfSKUs: selectedTrip.skus || '20',
+            totalCost: selectedTrip.cost || '₹ 5,00,000',
+            createdAt: selectedTrip.createdAt || '3 PM, 10 Feb 24',
             transitStatus: selectedTrip.status,
             isOnTime: !selectedTrip.deliveryStatus.includes('Delayed'),
             eta: selectedTrip.deliveryDate.includes('ETA') ? selectedTrip.deliveryDate.replace('ETA: ', '') : selectedTrip.deliveryDate,
             sta: selectedTrip.deliveryDate,
             nextMilestone: 'At Destination',
             etaDestination: selectedTrip.deliveryDate,
-            sender: {
+            sender: selectedTrip.addresses?.sender || {
               name: selectedTrip.consignor,
               address: 'Consignor Address, 11th & 12th Floor, Hansalaya Building, 15 Barakhamba Road, Amritsar, Punjab',
               gstin: '12345678',
               email: 'someemailaddress@somemail.com',
               phone: '84973-47593'
             },
-            shipTo: {
+            shipTo: selectedTrip.addresses?.shipTo || {
               name: selectedTrip.consignee,
               address: 'Consignor Address, 11th & 12th Floor, Hansalaya Building, 15 Barakhamba Road, New Delhi 110001',
               gstin: '12345678',
               email: 'someemailaddress@somemail.com',
               phone: '84973-47593'
             },
-            billTo: {
+            billTo: selectedTrip.addresses?.billTo || {
               name: selectedTrip.consignee,
               address: 'Consignor Address, 11th & 12th Floor, Hansalaya Building, 15 Barakhamba Road, New Delhi 110001',
               gstin: '12345678',
@@ -422,7 +422,9 @@ const SummaryPage = () => {
               journeyId: selectedTrip.id,
               epodId: '-',
               invoiceNumber: '-'
-            }
+            },
+            timeline: selectedTrip.timeline,
+            comments: selectedTrip.comments
           }}
         />
       )}
