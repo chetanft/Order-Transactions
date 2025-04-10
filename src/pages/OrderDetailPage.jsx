@@ -1,12 +1,21 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import styles from './OrderDetailPage.module.css';
+import InvoiceDetailsModal from '../components/InvoiceDetailsModal';
 
 const OrderDetailPage = () => {
   const { orderId } = useParams();
   const navigate = useNavigate();
   const displayOrderId = "SO: 21424";
   const [activeInvoiceTab, setActiveInvoiceTab] = useState(1);
+  const [isInvoiceModalOpen, setIsInvoiceModalOpen] = useState(false);
+
+  const openInvoiceModal = () => setIsInvoiceModalOpen(true);
+  const closeInvoiceModal = () => setIsInvoiceModalOpen(false);
+
+  // These functions would navigate to previous/next orders in a real app
+  const handlePrevOrder = () => console.log('Navigate to previous order');
+  const handleNextOrder = () => console.log('Navigate to next order');
 
   // Get current date for realistic timestamps
   const currentDate = new Date();
@@ -47,19 +56,19 @@ const OrderDetailPage = () => {
           <h1>{displayOrderId}</h1>
         </div>
         <div className={styles.headerActions}>
-          <button className={styles.actionButton}>
+          <button className={styles.actionButton} onClick={openInvoiceModal}>
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="12" cy="12" r="1"></circle>
               <circle cx="19" cy="12" r="1"></circle>
               <circle cx="5" cy="12" r="1"></circle>
             </svg>
           </button>
-          <button className={styles.navButton}>
+          <button className={styles.navButton} onClick={handlePrevOrder}>
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="15 18 9 12 15 6"></polyline>
             </svg>
           </button>
-          <button className={styles.navButton}>
+          <button className={styles.navButton} onClick={handleNextOrder}>
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="9 18 15 12 9 6"></polyline>
             </svg>
@@ -578,6 +587,26 @@ const OrderDetailPage = () => {
           </div>
         </div>
       </div>
+      <InvoiceDetailsModal
+        isOpen={isInvoiceModalOpen}
+        onClose={closeInvoiceModal}
+        onPrev={handlePrevOrder}
+        onNext={handleNextOrder}
+        orderData={{
+          soNumber: displayOrderId.replace('SO: ', ''),
+          totalWeight: '70 Ton',
+          numberOfDOs: '1',
+          numberOfSKUs: '20',
+          totalCost: '₹ 5,00,000',
+          createdAt: '3 PM, 10 Feb 24',
+          transitStatus: 'In Transit',
+          isOnTime: true,
+          eta: formattedETA,
+          sta: formattedStartDate,
+          nextMilestone: 'At Destination',
+          etaDestination: formattedStartDate
+        }}
+      />
     </div>
   );
 };

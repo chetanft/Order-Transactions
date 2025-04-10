@@ -1,0 +1,443 @@
+/* InvoiceDetailsModal.module.css */
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modalContainer {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  width: 90%;
+  max-width: 900px;
+  max-height: 90vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.modalHeader h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.modalActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.navButton, .closeButton {
+  background: none;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #555;
+}
+
+.closeButton {
+  color: #777;
+}
+
+.tabsContainer {
+  display: flex;
+  border-bottom: 1px solid #e0e0e0;
+  background-color: #fff;
+}
+
+.tabButton {
+  padding: 12px 24px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  font-weight: 500;
+  color: #555;
+  cursor: pointer;
+}
+
+.activeTab {
+  border-bottom: 2px solid #0066cc;
+  color: #0066cc;
+}
+
+.tabContent {
+  padding: 24px;
+  overflow-y: auto;
+  max-height: calc(90vh - 120px);
+}
+
+/* Details Tab */
+.detailsTab {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.detailsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 24px;
+}
+
+.detailItem {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.detailLabel {
+  font-size: 0.85rem;
+  color: #777;
+}
+
+.detailValue {
+  font-weight: 500;
+  color: #333;
+}
+
+.transitStatusContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.transitStatus {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.transitLabel {
+  font-weight: 500;
+  color: #333;
+}
+
+.onTimeTag {
+  background-color: #e6ffee;
+  color: #00cc66;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.transitTimes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.timeColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 150px;
+}
+
+.timeLabel {
+  font-size: 0.85rem;
+  color: #777;
+}
+
+.timeValue {
+  font-weight: 500;
+  color: #333;
+}
+
+.addressSection {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.addressCard {
+  flex: 1;
+  min-width: 250px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.addressTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 8px 0;
+}
+
+.addressName {
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.addressText {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+.addressDetail {
+  font-size: 0.85rem;
+  color: #555;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.idSection {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  border-top: 1px solid #eee;
+  padding-top: 24px;
+}
+
+.idRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 200px;
+}
+
+.idLabel {
+  font-size: 0.85rem;
+  color: #777;
+}
+
+.idValue {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  color: #333;
+}
+
+/* Timeline Tab */
+.timelineTab {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.timelineDay {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.timelineDate {
+  font-size: 0.9rem;
+  color: #777;
+  background-color: #f8f9fa;
+  padding: 4px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  align-self: center;
+}
+
+.timelineEvents {
+  position: relative;
+}
+
+.timelineEvents::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 10px;
+  width: 2px;
+  background-color: #e0e0e0;
+}
+
+.timelineEvent {
+  display: flex;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.timelineIcon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #fff;
+  border: 2px solid #0066cc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 16px;
+  z-index: 1;
+}
+
+.timelineDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #0066cc;
+}
+
+.timelineContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.timelineHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.timelineTitle {
+  font-weight: 600;
+  color: #333;
+}
+
+.timelineMeta {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.85rem;
+  color: #777;
+}
+
+.timelineDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.timelineDetail {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.timelineSubEvent {
+  margin-left: 16px;
+  padding-left: 16px;
+  border-left: 1px dashed #e0e0e0;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.subEventHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.subEventTitle {
+  font-weight: 500;
+  color: #333;
+}
+
+/* Comments Tab */
+.commentsTab {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.comment {
+  padding-bottom: 16px;
+  border-bottom: 1px solid #eee;
+}
+
+.commentTime {
+  font-size: 0.85rem;
+  color: #777;
+  margin-bottom: 8px;
+}
+
+.commentText {
+  font-size: 0.9rem;
+  color: #333;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.commentUser {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.userAvatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #f5c518;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.userName {
+  font-size: 0.85rem;
+  color: #555;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .modalContainer {
+    width: 95%;
+    max-height: 95vh;
+  }
+  
+  .detailsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+  
+  .transitTimes {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .addressSection {
+    flex-direction: column;
+  }
+  
+  .timelineHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
