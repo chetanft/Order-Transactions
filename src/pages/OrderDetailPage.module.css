@@ -1,0 +1,579 @@
+/* OrderDetailPage.module.css */
+
+.orderDetailPage {
+  display: flex;
+  flex-direction: column;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+/* Header Navigation */
+.headerNav {
+  background-color: #fff;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 0 1.5rem;
+}
+
+.tabsContainer {
+  display: flex;
+  gap: 1rem;
+}
+
+.tabButton {
+  padding: 1rem 1.5rem;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  font-weight: 500;
+  color: #555;
+  cursor: pointer;
+}
+
+.tabButton.active {
+  border-bottom: 2px solid #0066cc;
+  color: #0066cc;
+}
+
+/* Order Header */
+.orderHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background-color: #fff;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.backNavigation {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.backButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.backNavigation h1 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.actionButton, .navButton {
+  background: none;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 0.25rem;
+  cursor: pointer;
+  color: #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Status Banner */
+.statusBanner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  background-color: #e6f7ff;
+  border-bottom: 1px solid #b3e0ff;
+}
+
+.statusInfo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.statusLabel {
+  font-weight: 500;
+  color: #0066cc;
+}
+
+.statusBadge {
+  background-color: #e6ffee;
+  color: #00cc66;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.etaInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.etaLabel {
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.etaTime {
+  font-weight: 500;
+  color: #333;
+}
+
+/* Transit Info */
+.transitInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  background-color: #fff;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.transitStatus {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.transitLabel {
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.transitBadge {
+  background-color: #e6f0ff;
+  color: #0066cc;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.transitTimes, .milestoneInfo, .etlInfo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.timeBlock {
+  display: flex;
+  flex-direction: column;
+}
+
+.timeLabel, .milestoneLabel, .etlLabel {
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.timeValue, .milestoneValue, .etlValue {
+  font-weight: 500;
+  color: #333;
+}
+
+/* ID Section */
+.idSection {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0.75rem 1.5rem;
+  background-color: #fff;
+  border-bottom: 1px solid #e0e0e0;
+  gap: 1rem;
+}
+
+.idRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 250px;
+}
+
+.idLabel {
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.idValue {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.copyButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #777;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Main Content */
+.mainContent {
+  display: flex;
+  padding: 1.5rem;
+  gap: 1.5rem;
+}
+
+.orderTimelineSection {
+  flex: 2;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+}
+
+.commentsSection {
+  flex: 1;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+}
+
+.sectionTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 1rem 0;
+}
+
+.timelineDate {
+  font-size: 0.9rem;
+  color: #777;
+  margin-bottom: 1rem;
+}
+
+/* Timeline */
+.timeline {
+  position: relative;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 10px;
+  width: 2px;
+  background-color: #e0e0e0;
+}
+
+.timelineItem {
+  display: flex;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.timelineIconActive, .timelineIconInactive {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+  z-index: 1;
+}
+
+.timelineIconActive {
+  border: 2px solid #0066cc;
+}
+
+.timelineIconInactive {
+  border: 2px solid #ccc;
+}
+
+.timelineDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #0066cc;
+}
+
+.timelineIconInactive .timelineDot {
+  background-color: #ccc;
+}
+
+.timelineContent {
+  flex: 1;
+}
+
+.timelineHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.timelineTitle {
+  font-weight: 600;
+  color: #333;
+}
+
+.timelineDuration, .timelineTime {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.85rem;
+  color: #777;
+}
+
+.timelineDetails {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+
+.timelineDetail {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.timelineRuntime {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.85rem;
+  color: #777;
+}
+
+.delayedText {
+  color: #e74c3c;
+  font-weight: 500;
+}
+
+/* Comments */
+.comment {
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.commentHeader {
+  margin-bottom: 0.5rem;
+}
+
+.commentTime {
+  font-size: 0.85rem;
+  color: #777;
+}
+
+.commentContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.commentText {
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.commentUser {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.userAvatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #0066cc;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.userName {
+  font-size: 0.85rem;
+  color: #555;
+}
+
+/* Order Details Section */
+.orderDetailsSection {
+  padding: 1.5rem;
+  background-color: #fff;
+  margin: 0 1.5rem 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.detailsTable {
+  margin-bottom: 1.5rem;
+}
+
+.detailsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.detailsCell {
+  min-width: 150px;
+}
+
+.cellLabel {
+  font-size: 0.85rem;
+  color: #777;
+  margin-bottom: 0.25rem;
+}
+
+.cellValue {
+  font-weight: 500;
+  color: #333;
+}
+
+/* Address Section */
+.addressSection {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.addressColumn {
+  flex: 1;
+  min-width: 250px;
+}
+
+.addressTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 0.5rem 0;
+}
+
+.addressCompany {
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.addressDetails {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.contactInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.contactLabel, .contactEmail, .contactPhone {
+  font-size: 0.85rem;
+  color: #555;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Compliance Section */
+.complianceSection {
+  margin-top: 1.5rem;
+}
+
+.complianceItem {
+  margin-bottom: 1.5rem;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  padding: 1rem;
+}
+
+.complianceTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 0.75rem 0;
+}
+
+.complianceRow {
+  display: flex;
+  align-items: center;
+}
+
+.complianceCell {
+  min-width: 150px;
+  margin-right: 1.5rem;
+}
+
+.complianceStatus {
+  margin-left: auto;
+}
+
+.onTimeStatus {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  background-color: #e6ffee;
+  color: #00cc66;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* Invoices Section */
+.invoicesSection {
+  margin-top: 1.5rem;
+}
+
+.invoiceTabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.invoiceTab {
+  padding: 0.5rem 1rem;
+  background: none;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-weight: 500;
+  color: #555;
+  cursor: pointer;
+}
+
+.invoiceTab.activeTab {
+  background-color: #0066cc;
+  color: white;
+  border-color: #0066cc;
+}
+
+.invoiceDetails {
+  border: 1px solid #eee;
+  border-radius: 4px;
+  padding: 1rem;
+}
+
+.invoiceRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.invoiceCell {
+  min-width: 150px;
+}
